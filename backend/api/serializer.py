@@ -22,3 +22,25 @@ class MemberSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'username': {'read_only': True}  # Set 'username' field as read-only
         }
+
+
+# serializer class for Projects
+class ProjectSerializer(serializers.ModelSerializer):
+    # spesify the project_pics field as a list of images
+    project_pics = serializers.ListField(
+        child=serializers.ImageField(allow_empty_file=False, use_url=True),required=False)
+
+    class Meta:
+        model = Projects
+        fields = ['title', 'description', 'project_pics', 'cover_pic', 'demo_link']
+
+
+# serializer class for Reviews
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reviews
+        fields = ['review', 'rating', 'date']
+        extra_kwargs = {
+            'date': {'read_only': True},
+            'project': {'read_only': True}
+        }
