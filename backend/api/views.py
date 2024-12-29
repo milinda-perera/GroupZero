@@ -21,6 +21,13 @@ class CreateMemberView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(username=self.request.user)
 
+# update member view
+class UpdateMemberView(generics.UpdateAPIView):
+    queryset = Members.objects.all()
+    serializer_class = MemberSerializer
+    lookup_field = 'id'
+    permission_classes = [AllowAny]
+
 # get member buy id
 class MemberDetailView(generics.RetrieveAPIView):
     queryset = Members.objects.all()
@@ -59,3 +66,39 @@ class CreateProjectView(generics.CreateAPIView):
 
         # Pass the paths to the serializer for saving
         serializer.save(project_pics=file_paths)
+
+# get all projects
+class AllProjects(generics.ListAPIView):
+    queryset = Projects.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [AllowAny]
+
+# get project by id
+class ProjectDetailView(generics.RetrieveAPIView):
+    queryset = Projects.objects.all()
+    serializer_class = ProjectSerializer
+    lookup_field = 'id'
+    permission_classes = [AllowAny]
+
+
+# update project by id  
+class UpdateProjectView(generics.UpdateAPIView):
+    queryset = Projects.objects.all()
+    serializer_class = ProjectSerializer
+    lookup_field = 'id'
+    permission_classes = [AllowAny]
+
+
+# delete project by id  
+class DeleteProjectView(generics.DestroyAPIView):
+    queryset = Projects.objects.all()
+    serializer_class = ProjectSerializer
+    lookup_field = 'id'
+    permission_classes = [AllowAny]
+
+
+# to create new review
+class CreateReviewView(generics.CreateAPIView):
+    queryset = Reviews.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
