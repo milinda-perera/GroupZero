@@ -83,11 +83,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-# Database configuration (MySQL via dj_database_url)
+# Database configuration (AWS RDS MySQL)
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'mysql://hamuoya8g9ckzwrq:rpi18btcmgr2zndz@bqmayq5x95g1sgr9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/t61qjjunbdqhr1e4')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # Use MySQL
+        'NAME': 'groupzero',  # Replace with your database name
+        'USER': 'admin',  # Master username
+        'PASSWORD': 'qweQWE123',  # Master password
+        'HOST': 'groupzero-rds.ctoa40s08b4u.eu-north-1.rds.amazonaws.com',  # Endpoint
+        'PORT': '3306',  # Default MySQL port
+    }
 }
 
 # Password validation
@@ -133,4 +138,3 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Activate Django-Heroku settings
 django_heroku.settings(locals())
-
