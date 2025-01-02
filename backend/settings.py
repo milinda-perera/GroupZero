@@ -84,7 +84,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "backend.wsgi.application"
 
 # Database configuration (AWS RDS MySQL)
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Use MySQL
         'NAME': 'groupzero',  # Replace with your database name
@@ -92,6 +92,18 @@ DATABASES = {
         'PASSWORD': 'qweQWE123',  # Master password
         'HOST': 'groupzero-rds.ctoa40s08b4u.eu-north-1.rds.amazonaws.com',  # Endpoint
         'PORT': '3306',  # Default MySQL port
+    }
+}"""
+
+# Database configuration (my local mysql)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # Use MySQL
+        'NAME': 'freelance',  # Replace with your database name
+        'USER' : 'root',
+        'PASSWORD' : 'ABC123',
+        'HOST' : 'localhost',
+        'PORT' : '3306',
     }
 }
 
