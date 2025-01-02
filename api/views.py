@@ -26,33 +26,33 @@ class UpdateMemberView(generics.UpdateAPIView):
     queryset = Members.objects.all()
     serializer_class = MemberSerializer
     lookup_field = 'id'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 # get member buy id
 class MemberDetailView(generics.RetrieveAPIView):
     queryset = Members.objects.all()
     serializer_class = MemberSerializer
     lookup_field = 'id'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 # get all members details
 class AllMemberView(generics.ListAPIView):
     queryset = Members.objects.all()
     serializer_class = MemberSerializer
-    permission_classes = [AllowAny] 
+    permission_classes = [IsAuthenticated] 
 
 # delete member by id
 class DeleteMemberView(generics.DestroyAPIView):
     queryset = Members.objects.all()
     serializer_class = MemberSerializer
     lookup_field = 'id'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 # to create new project
 class CreateProjectView(generics.CreateAPIView):
     queryset = Projects.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         # Extract the project_pics files from the request
@@ -71,14 +71,14 @@ class CreateProjectView(generics.CreateAPIView):
 class AllProjects(generics.ListAPIView):
     queryset = Projects.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 # get project by id
 class ProjectDetailView(generics.RetrieveAPIView):
     queryset = Projects.objects.all()
     serializer_class = ProjectSerializer
     lookup_field = 'id'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 # update project by id  
@@ -86,7 +86,7 @@ class UpdateProjectView(generics.UpdateAPIView):
     queryset = Projects.objects.all()
     serializer_class = ProjectSerializer
     lookup_field = 'id'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 # delete project by id  
@@ -94,7 +94,7 @@ class DeleteProjectView(generics.DestroyAPIView):
     queryset = Projects.objects.all()
     serializer_class = ProjectSerializer
     lookup_field = 'id'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 # to create new review
@@ -102,3 +102,14 @@ class CreateReviewView(generics.CreateAPIView):
     queryset = Reviews.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
+
+
+# check if the current user is a member
+class IsMemberView(generics.ListAPIView):
+    queryset = Members.objects.all()
+    serializer_class = MemberSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Members.objects.filter(username=self.request.user)
+
